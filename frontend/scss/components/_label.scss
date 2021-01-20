@@ -1,0 +1,63 @@
+/* ==========================================================================
+   COMPONENTS/ #LABEL
+   ========================================================================== */
+
+   .label {
+    @include font(19);
+  
+    display: block;
+    margin-bottom: spacing(1);
+  }
+  
+  /* Modifiers that make labels look more like their equivalent headings */
+  
+  .label--xl {
+    @include typography-responsive(48);
+  
+    display: block;
+    font-weight: $font-bold;
+    margin-top: 0;
+  
+    @include responsive-margin(7, 'bottom');
+  }
+  
+  .label--l {
+    @include typography-responsive(32);
+  
+    display: block;
+    font-weight: $font-bold;
+    margin-top: 0;
+  
+    @include responsive-margin(4, 'bottom');
+  }
+  
+  .label--m {
+    @include typography-responsive(24);
+  
+    display: block;
+    font-weight: $font-bold;
+    margin-top: 0;
+  
+    @include responsive-margin(4, 'bottom');
+  }
+  
+  .label--s {
+    @include typography-responsive(19);
+  
+    display: block;
+    font-weight: $font-bold;
+    margin-top: 0;
+  
+    @include responsive-margin(4, 'bottom');
+  }
+  
+  // When the label is nested inside a heading, override the heading so that it
+  // does not have a margin. Effectively we want to be able to treat the heading
+  // as if it is not there.
+  //
+  // This breaks BEM conventions because it exists as a parent of the 'block',
+  // so we can't really consider an element.
+  .label-wrapper {
+    margin: 0;
+  }
+  

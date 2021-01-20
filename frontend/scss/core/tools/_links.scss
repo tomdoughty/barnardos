@@ -1,0 +1,129 @@
+// ==========================================================================
+// TOOLS / #LINKS
+// ==========================================================================
+
+//
+// Default link styling
+//
+// Usage: @include link-style-default;
+//
+
+@mixin link-style-default {
+
+  color: $link-color;
+
+  &:visited {
+    color: $link-visited-color;
+  }
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: none;
+  }
+
+  &:focus {
+    @include focused-text();
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: $focus-text-color;
+    }
+
+    .icon {
+      fill: $focus-text-color;
+    }
+  }
+
+  &:active {
+    color: $link-active-color;
+  }
+
+}
+
+//
+// White link styling, used in the footer.
+//
+// Usage: @include link-style-white;
+//
+
+@mixin link-style-white {
+
+  color: $color_white;
+
+  &:visited {
+    color: $color_white;
+  }
+
+  &:hover {
+    color: $color_white;
+    text-decoration: none;
+  }
+
+  &:focus {
+    color: $focus-text-color;
+    outline: $focus-width solid transparent;
+    outline-offset: $focus-width;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $link-active-color;
+  }
+
+}
+
+//
+// Default link hover only styling
+//
+// Usage: @include link-style-hover;
+//
+
+@mixin link-style-hover {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/// No visited state link mixin
+///
+/// Used in cases where it is not helpful to distinguish between visited and
+/// non-visited links.
+///
+/// For example, navigation links to pages with dynamic content like admin
+/// dashboards. The content on the page is changing all the time, so the fact
+/// that you’ve visited it before is not important.
+///
+/// If you use this mixin in a component you must also include the
+/// link-style-default mixin in order to get the focus state.
+///
+/// @example scss
+///   .component__link {
+///     @include link-style-default;
+///     @include link-style-no-visited-state;
+///   }
+///
+
+@mixin link-style-no-visited-state {
+  &:link {
+    color: $link-color;
+  }
+
+  &:visited {
+    color: $link-color;
+  }
+
+  &:hover {
+    color: $link-hover-color;
+  }
+
+  &:active {
+    color: $link-active-color;
+  }
+
+  &:focus {
+    color: $focus-text-color;
+  }
+}

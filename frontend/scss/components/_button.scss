@@ -1,0 +1,265 @@
+/* ==========================================================================
+   COMPONENTS/ #BUTTON
+   ========================================================================== */
+
+/**
+ * 1. Ensure that any global link styles are overridden.
+ * 2. Fix unwanted button padding in Firefox.
+ * 3. Use a pseudo element to expand the click target area to include the
+ *    button's shadow as well, in case users try to click it.
+ */
+
+// Because the shadow (s0) is visually 'part of' the button, we need to reduce
+// the height of the button to compensate by adjusting its padding (s1) and
+// increase the bottom margin to include it (s1).
+$button-shadow-size: 4px;
+
+.button {
+  @include font(22);
+  @include responsive-margin(5, 'bottom', $adjustment: $button-shadow-size); // s1
+
+  -webkit-appearance: none;
+  background-color: $button-color;
+  border: $border-width-form-element solid transparent;
+  box-sizing: border-box;
+  color: $button-text-color;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 0;
+  padding: 12px spacing(3); // s2
+  position: relative;
+  text-align: center;
+  vertical-align: top;
+  width: auto;
+
+  @include mq($until: tablet) {
+    padding: spacing(2) spacing(3); // s2
+  }
+
+  /* 2 */
+  &:link,
+  &:visited,
+  &:active,
+  &:hover {
+    color: $button-text-color;
+    text-decoration: none;
+  }
+
+  /* 3 */
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+
+  &:focus {
+    background: $focus-color;
+    box-shadow: 0 $button-shadow-size 0 $focus-text-color;
+    color: $focus-text-color;
+    outline: $focus-width solid transparent;
+
+    &:visited {
+      color: $focus-text-color;
+
+      &:active {
+        color: $color_white;
+      }
+
+    }
+  }
+
+  &:active {
+    background: $button-active-color;
+    box-shadow: none;
+    color: $button-text-color;
+    top: $button-shadow-size;
+  }
+
+  /* 4 */
+  &::before {
+    background: transparent;
+    bottom: -($border-width-form-element + $button-shadow-size);
+    content: '';
+    display: block;
+    left: -$border-width-form-element;
+    position: absolute;
+    right: -$border-width-form-element;
+    top: -$border-width-form-element;
+  }
+
+  //
+  // When the button is active it is shifted down by $button-shadow-size to
+  // denote a 'pressed' state. If the user happened to click at the very top
+  // of the button, their mouse is no longer over the button (because it has
+  // 'moved beneath them') and so the click event is not fired.
+  //
+  // This corrects that by shifting the top of the pseudo element so that it
+  // continues to cover the area that the user originally clicked, which means
+  // the click event is still fired.
+  //
+
+  &:active::before {
+    top: -($border-width-form-element + $button-shadow-size);
+  }
+
+}
+
+/**
+ * Button variations
+ */
+
+.button--secondary {
+  background-color: $secondary-button-color;
+  box-shadow: 0 $button-shadow-size 0 $secondary-button-shadow-color;
+
+  &:hover {
+    background-color: darken($secondary-button-color, 10%);
+  }
+
+  &:focus {
+    background: $focus-color;
+    box-shadow: 0 $button-shadow-size 0 $focus-text-color;
+    color: $focus-text-color;
+    outline: $focus-width solid transparent;
+  }
+
+  &:active {
+    background: $secondary-button-active-color;
+    box-shadow: none;
+    color: $button-text-color;
+    top: $button-shadow-size;
+  }
+
+  &.button--disabled {
+    background-color: $secondary-button-color;
+  }
+
+}
+
+.button--reverse {
+  background-color: $reverse-button-color;
+  box-shadow: 0 $button-shadow-size 0 $reverse-button-shadow-color;
+  color: $reverse-button-text-color;
+
+  &:hover {
+    background-color: darken($reverse-button-color, 5%);
+    color: $reverse-button-text-color;
+  }
+
+  &:focus {
+    background: $focus-color;
+    box-shadow: 0 $button-shadow-size 0 $focus-text-color;
+    color: $focus-text-color;
+    outline: $focus-width solid transparent;
+  }
+
+  &:active {
+    background: $reverse-button-active-color;
+    box-shadow: none;
+    color: $color_white;
+    top: $button-shadow-size;
+  }
+
+  &:link {
+    color: $reverse-button-text-color;
+
+    &:active {
+      color: $color_white;
+    }
+  }
+
+  &.button--disabled {
+    background-color: $reverse-button-color;
+
+    &:focus {
+      background-color: $reverse-button-color;
+    }
+  }
+
+}
+
+/**
+ * Button disabled states
+ */
+
+.button--disabled,
+.button[disabled="disabled"], // sass-lint:disable-line quotes
+.button[disabled] {
+  background-color: $button-color;
+  opacity: (.5);
+  pointer-events: none;
+
+  &:hover {
+    background-color: $button-color;
+    cursor: default;
+  }
+
+  &:focus {
+    background-color: $button-color;
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0 $button-shadow-size 0 $button-shadow-color; // s0
+    top: 0;
+  }
+
+}
+
+.button--secondary[disabled="disabled"], // sass-lint:disable-line quotes
+.button--secondary[disabled] {
+  background-color: $secondary-button-color;
+  opacity: (.5);
+
+  &:hover {
+    background-color: $secondary-button-color;
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0 $button-shadow-size 0 $secondary-button-shadow-color; // s0
+    top: 0;
+  }
+
+}
+
+.button--reverse[disabled="disabled"], // sass-lint:disable-line quotes
+.button--reverse[disabled] {
+  background-color: $reverse-button-color;
+  opacity: (.5);
+
+  &:hover {
+    background-color: $reverse-button-color;
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0 $button-shadow-size 0 $reverse-button-shadow-color; // s0
+    top: 0;
+  }
+
+}
+
+/**
+ * IE8 fix for focus styles
+ */
+
+.ie8 {
+  .button {
+    &:focus {
+      outline: 1px dotted $focus-text-color;
+    }
+  }
+}
