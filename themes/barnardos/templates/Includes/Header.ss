@@ -28,7 +28,7 @@
         <a href="/Security/logout?BackURL=%2F">Logout</a>
       <% else %>
         <a href="/partners">Register</a>
-        <a href="Security/login?BackURL=%2Fdashboard%2F">Login</a>
+        <a href="/Security/login?BackURL=%2Fdashboard%2F">Login</a>
       <% end_if %>
     </div>
 
