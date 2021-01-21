@@ -26,7 +26,7 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" />
   </noscript>
 
-  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  <link rel="stylesheet" type="text/css" href="/public/css/main.css" />
 
   <link rel="shortcut icon" href="/images/favicons/favicon.ico" type="image/x-icon">
 
@@ -38,7 +38,7 @@
   <meta property="og:locale" content="en_GB">
   <meta property="og:image" content="$ShareImage.AbsoluteURL">
 
-  <script type="text/javascript" src="/javascript/main.js" defer></script>
+  <script type="text/javascript" src="/public/javascript/main.js" defer></script>
 </head>
 <body>
   <% include Header %>
